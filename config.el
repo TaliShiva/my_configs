@@ -74,3 +74,14 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(defun +private/treemacs-back-and-forth ()
+  "Переключаться между treemacs и последним окном."
+  (interactive)
+  (if (treemacs-is-treemacs-window-selected?)
+      (aw-flip-window)                 ; назад в предыдущий буфер
+    (treemacs-select-window)))         ; в treemacs
+
+(map! :after treemacs
+      :leader
+      :n "-" #'+private/treemacs-back-and-forth)
