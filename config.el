@@ -85,3 +85,26 @@
 (map! :after treemacs
       :leader
       :n "-" #'+private/treemacs-back-and-forth)
+
+(use-package! py-autopep8
+  :hook (python-mode . py-autopep8-mode)
+  :config
+  (setq py-autopep8-options '("--max-line-length=100")))
+
+
+;; функции для перемещения строки
+(defun my/move-line-up ()
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2)
+  (indent-according-to-mode))
+
+(defun my/move-line-down ()
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1)
+  (indent-according-to-mode))
+;; бинды для Evil normal state
+(map! :n "J" #'my/move-line-down
+      :n "K" #'my/move-line-up)
